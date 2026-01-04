@@ -2,6 +2,9 @@
 
 **Moto Karar**, kullanıcıların kriterlerine göre kendileri için en uygun motosikleti bilimsel yöntemlerle seçmelerine yardımcı olan web tabanlı bir karar destek sistemidir. Sistem, Çok Kriterli Karar Verme (ÇKKV) tekniklerinden olan **AHP (Analitik Hiyerarşi Süreci)** ve **TOPSIS** algoritmalarını hibrit bir yapıda kullanır.
 
+📷 Ekran Görüntüleri
+<img width="1919" height="910" alt="Moto karar" src="https://github.com/user-attachments/assets/f87e1371-8e0f-4220-b604-049b0e7a2587" />
+
 ## 🚀 Özellikler
 
 * **Çift Yöntemli Ağırlıklandırma:** Kullanıcılar kriter önem derecelerini ister basit sürgülerle (Slider) ister ikili karşılaştırma (AHP) yaparak belirleyebilirler.
