@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpeg" href="MotoKarar.png">
+    <title>Moto Karar - Karar Destek Sistemi</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Moto Karar: AHP ve TOPSIS yöntemleriyle size en uygun motosikleti bilimsel olarak seçin. Fiyat, güç, yakıt tüketimi ve ağırlık kriterlerine göre motosiklet karşılaştırması yapın.">
+    <meta name="keywords" content="motosiklet, karar destek sistemi, AHP, TOPSIS, motosiklet seçimi, motosiklet karşılaştırma, Honda, Yamaha, Kawasaki, BMW, Ducati, Bajaj, Triumph">
+    <meta name="author" content="Moto Karar">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Moto Karar - Motosiklet Karar Destek Sistemi">
+    <meta property="og:description" content="Bilimsel yöntemlerle size en uygun motosikleti seçin. AHP ve TOPSIS algoritmalarıyla motosiklet karşılaştırması.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://motokarar.com">
+    <meta property="og:image" content="https://motokarar.com/MotoKarar.png">
+    <meta property="og:site_name" content="Moto Karar">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Moto Karar - Motosiklet Karar Destek Sistemi">
+    <meta name="twitter:description" content="Bilimsel yöntemlerle size en uygun motosikleti seçin. AHP ve TOPSIS algoritmalarıyla motosiklet karşılaştırması.">
+    <meta name="twitter:image" content="https://motokarar.com/MotoKarar.png">
+    
+    <!-- Additional SEO Tags -->
+    <meta name="theme-color" content="#ff6600">
+    <meta name="msapplication-TileColor" content="#ff6600">
+    <link rel="canonical" href="https://motokarar.com">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Moto Karar",
+        "description": "AHP ve TOPSIS yöntemleriyle motosiklet seçimi için karar destek sistemi",
+        "url": "https://motokarar.com",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "TRY"
+        }
+    }
+    </script>
+    
+    <style>
+        /* --- GENEL SIFIRLAMA --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: #ffffff;
+            color: #000;
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- NAVBAR --- */
+        /* NAVBAR (Sabit/Yapışkan Hale Getirildi) */
+        .simple-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+    
+            /* Eski margin ve border ayarları */
+            padding: 20px 10px; /* Biraz iç boşluk ekledik */
+            margin-bottom: 40px;
+            border-bottom: 2px solid #f5f5f5;
+
+            /* --- YENİ EKLENEN KISIMLAR --- */
+            position: sticky; /* Sayfaya yapışmasını sağlayan komut */
+            top: 0;           /* En tepede durması için */
+            background-color: rgba(255, 255, 255, 0.98); /* Arka planı hafif şeffaf beyaz yap */
+            z-index: 1000;    /* Diğer resimlerin/yazıların üstünde kalmasını sağlar */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Altına hafif bir gölge ekler, şık durur */
+            backdrop-filter: blur(5px); /* Arka planı hafifçe bulanıklaştırır (buzlu cam efekti) */
+        }
+        
+        .nav-brand {
+            font-size: 1.5em;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: #000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-menu a {
+            color: #000;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            transition: color 0.3s;
+        }
+        .nav-menu a:hover { color: #ff6600; }
+
+        /* --- HERO --- */
+        .header-main {
+            text-align: center;
+            padding: 40px 20px;
+            background: #fff;
+        }
+
+        .header-main h1 {
+            font-size: 3em;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            color: #666;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .info-box {
+            background: #f9f9f9;
+            border-left: 4px solid #ff6600;
+            padding: 15px 20px;
+            margin: 0 auto 40px auto;
+            max-width: 800px;
+            text-align: left;
+            font-size: 0.9em;
+            color: #444;
+        }
+
+        /* --- BUTONLAR --- */
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            cursor: pointer;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            font-size: 1em;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary {
+            background: #fff;
+            color: #000;
+            border: 2px solid #000;
+        }
+        .btn-secondary:hover {
+            background: #000;
+            color: #fff;
+        }
+
+        .btn-calculate {
+            background: #ff6600;
+            color: #fff;
+            width: 100%;
+            max-width: 500px;
+            font-size: 1.1em;
+            margin: 0 auto;
+            display: block;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3);
+        }
+        .btn-calculate:hover {
+            background: #e65c00;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 102, 0, 0.4);
+        }
+
+        /* --- BÖLÜMLER --- */
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section h2 {
+            font-size: 1.8em;
+            font-weight: 800;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        /* --- YÖNTEM SEÇİMİ --- */
+        .method-selector {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .method-option {
+            background: #f5f5f5;
+            padding: 12px 25px;
+            cursor: pointer;
+            font-weight: 600;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+        .method-option.active {
+            border-color: #ff6600;
+            background: #fff0e6;
+            color: #ff6600;
+        }
+        .method-option input { display: none; }
+
+        /* --- SLIDER YÖNTEMİ --- */
+        .criteria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .criteria-item {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            transition: border-color 0.3s;
+        }
+        .criteria-item:hover { border-color: #000; }
+        .criteria-item label {
+            display: block; font-weight: 700; margin-bottom: 10px; text-transform: uppercase; font-size: 0.85em;
+        }
+        input[type=range] { width: 100%; accent-color: #ff6600; }
+
+        /* --- AHP ARAYÜZÜ --- */
+        .ahp-container { max-width: 900px; margin: 0 auto; }
+        .ahp-row {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 15px 0; border-bottom: 1px solid #f0f0f0;
+        }
+        .ahp-label { width: 20%; font-weight: 700; font-size: 0.85em; text-transform: uppercase; text-align: center; }
+        .ahp-scale { flex: 1; display: flex; justify-content: center; align-items: center; gap: 8px; }
+        
+        .scale-point {
+            width: 32px; height: 32px; border-radius: 50%; border: 2px solid #ddd;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-weight: 600; font-size: 0.75em; color: #999;
+            transition: all 0.2s; position: relative;
+        }
+        .scale-point:hover { border-color: #ff6600; color: #ff6600; }
+        .scale-point.selected {
+            background: #ff6600; border-color: #ff6600; color: #fff; transform: scale(1.1);
+        }
+        .scale-point.center { border-color: #ccc; color: #666; }
+        .scale-point:hover::after {
+            content: attr(data-title); position: absolute; bottom: 40px;
+            background: #000; color: #fff; padding: 4px 8px; border-radius: 4px;
+            font-size: 0.7em; white-space: nowrap; pointer-events: none; z-index: 10;
+        }
+
+        /* --- TUTARLILIK ORANI KUTUSU --- */
+        .ahp-consistency-box {
+            background: #fff; border: 1px solid #eee; border-radius: 8px;
+            padding: 20px; margin: 20px auto; max-width: 800px;
+            text-align: center;
+        }
+        .consistency-value { font-size: 2em; font-weight: 900; margin: 10px 0; }
+        .status-badge {
+            display: inline-block; padding: 5px 15px; border-radius: 20px;
+            font-weight: 700; font-size: 0.85em; text-transform: uppercase;
+        }
+        .status-ok { background: #e6ffe6; color: #008000; border: 1px solid #b3ffb3; }
+        .status-warn { background: #fff0e6; color: #cc3300; border: 1px solid #ffccb3; }
+
+        /* --- MOTOSİKLET ALTERNATİFLERİ --- */
+        .motorcycle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+        }
+
+        .motorcycle-item {
+            border: 1px solid #eee;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #fff;
+            position: relative;
+        }
+        .motorcycle-item:hover {
+            border-color: #ff6600;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .motorcycle-item.selected {
+            border: 2px solid #ff6600;
+            background: #fff5f0;
+        }
+        
+        .motorcycle-item::after {
+            content: '✓';
+            position: absolute; top: 10px; right: 10px;
+            width: 20px; height: 20px; background: #ff6600; color: white;
+            border-radius: 50%; font-size: 12px; display: flex;
+            align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.2s;
+        }
+        .motorcycle-item.selected::after { opacity: 1; }
+
+        .motorcycle-item img {
+            max-width: 100%; height: 120px; object-fit: contain;
+            mix-blend-mode: multiply;
+            filter: contrast(1.1) brightness(1.1);
+        }
+
+        /* --- SONUÇ TABLOSU --- */
+        .result-card {
+            border: 1px solid #eee; padding: 15px 25px; margin-bottom: 10px;
+            display: flex; justify-content: space-between; align-items: center;
+            background: #fff; transition: transform 0.2s; cursor: pointer;
+        }
+        .result-card:hover { transform: translateX(5px); border-left: 5px solid #ff6600; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .result-rank { 
+            font-size: 1.8em; font-weight: 900; color: #ff6600; margin-right: 25px; width: 40px; 
+        }
+        .result-name { font-size: 1.1em; font-weight: 800; text-transform: uppercase; }
+        .result-score { font-size: 0.9em; color: #666; background: #f5f5f5; padding: 5px 10px; border-radius: 4px; }
+        
+        /* Modal */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(255,255,255,0.98); }
+        .modal-content { 
+            width: 100%; height: 100%; 
+            display: flex; align-items: center; justify-content: center;
+            position: relative;
+        }
+        .modal-close {
+            position: absolute; top: 30px; right: 40px; font-size: 60px; font-weight: 100;
+            color: #000; cursor: pointer; line-height: 0.5; z-index: 100;
+        }
+
+        /* --- LOADING SPINNER --- */
+        .loading-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.95); z-index: 9999; display: none;
+            justify-content: center; align-items: center;
+        }
+        .loading-spinner {
+            width: 50px; height: 50px; border: 5px solid #f3f3f3;
+            border-top: 5px solid #ff6600; border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* --- TOAST NOTIFICATIONS --- */
+        .toast-container {
+            position: fixed; top: 20px; right: 20px; z-index: 10000;
+        }
+        .toast {
+            background: #333; color: white; padding: 15px 20px;
+            border-radius: 8px; margin-bottom: 10px; min-width: 250px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            animation: slideIn 0.3s ease, slideOut 0.3s ease 2.7s;
+        }
+        .toast.success { background: #28a745; }
+        .toast.error { background: #dc3545; }
+        .toast.info { background: #17a2b8; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+
+        /* --- DARK MODE --- */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        body.dark-mode .container {
+            background-color: #1a1a1a;
+        }
+        body.dark-mode .simple-nav {
+            background-color: rgba(26, 26, 26, 0.98);
+            border-bottom-color: #333;
+        }
+        body.dark-mode .nav-brand,
+        body.dark-mode .nav-menu a {
+            color: #ffffff;
+        }
+        body.dark-mode .nav-menu a:hover {
+            color: #ff6600;
+        }
+        body.dark-mode .header-main {
+            background-color: #1a1a1a;
+        }
+        body.dark-mode .header-main h1 {
+            color: #ffffff;
+        }
+        body.dark-mode .subtitle {
+            color: #ccc;
+        }
+        body.dark-mode .info-box {
+            background-color: #2a2a2a;
+            border-left-color: #ff6600;
+            color: #ccc;
+        }
+        body.dark-mode .criteria-item,
+        body.dark-mode .method-option {
+            background-color: #2a2a2a;
+            border-color: #444;
+        }
+        body.dark-mode .criteria-item:hover,
+        body.dark-mode .method-option:hover {
+            border-color: #ff6600;
+        }
+        body.dark-mode .method-option.active {
+            background-color: #3a2a1a;
+            border-color: #ff6600;
+            color: #ff6600;
+        }
+        body.dark-mode .section {
+            background-color: #2a2a2a;
+        }
+        body.dark-mode .section h2 {
+            color: #ff6600;
+            border-bottom-color: #444;
+        }
+        body.dark-mode .motorcycle-item {
+            background-color: #2a2a2a;
+            border-color: #444;
+        }
+        body.dark-mode .motorcycle-item:hover {
+            border-color: #ff6600;
+        }
+        body.dark-mode .motorcycle-item.selected {
+            background-color: #3a2a1a;
+            border-color: #ff6600;
+        }
+        body.dark-mode .result-card {
+            background-color: #2a2a2a;
+            border-color: #444;
+        }
+        body.dark-mode .result-card:hover {
+            border-left-color: #ff6600;
+        }
+        body.dark-mode .modal {
+            background-color: rgba(26, 26, 26, 0.98);
+        }
+        body.dark-mode .modal-content {
+            background-color: #2a2a2a;
+            color: #ffffff;
+        }
+        body.dark-mode .modal-close {
+            color: #ffffff;
+        }
+        body.dark-mode footer {
+            background-color: #2a2a2a;
+            color: #ccc;
+            border-top-color: #444;
+        }
+        
+        /* --- THEME TOGGLE --- */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ff6600;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 1001;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3);
+        }
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 102, 0, 0.4);
+        }
+
+        /* --- MOBİL MENÜ --- */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #000;
+            padding: 10px;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1002;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mobile-menu-content {
+            text-align: center;
+        }
+
+        .mobile-menu-content a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5em;
+            font-weight: 700;
+            margin: 20px 0;
+            text-transform: uppercase;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 2em;
+            cursor: pointer;
+        }
+
+        /* --- RESPONSIVE IMPROVEMENTS --- */
+        @media (max-width: 768px) {
+            .nav-menu { display: none; }
+            .mobile-menu-toggle { display: block; }
+            .criteria-grid { grid-template-columns: 1fr; }
+            .method-selector { flex-direction: column; }
+            .theme-toggle { top: 80px; }
+            
+            .header-main h1 { font-size: 2em; }
+            .header-main { padding: 20px; }
+            .container { padding: 0 15px; }
+            .section { padding: 20px; }
+            .motorcycle-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+            .motorcycle-item { padding: 8px; }
+            .motorcycle-item img { height: 80px; }
+            .btn-calculate { font-size: 1em; padding: 15px; }
+        }
+
+        @media (max-width: 480px) {
+            .header-main h1 { font-size: 1.5em; }
+            .motorcycle-grid { grid-template-columns: repeat(2, 1fr); }
+            .theme-toggle { width: 40px; height: 40px; font-size: 16px; }
+        }
+
+        /* --- CHART CONTAINER --- */
+        .chart-container {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .chart-title {
+            font-size: 1.2em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+            color: #333;
+        }
+        body.dark-mode .chart-container {
+            background: #2a2a2a;
+            border-color: #444;
+        }
+        body.dark-mode .chart-title {
+            color: #ff6600;
+        }
+
+        /* --- COMPARISON TABLE --- */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #eee;
+        }
+        .comparison-table th {
+            background: #f8f8f8;
+            font-weight: 700;
+            color: #333;
+        }
+        .comparison-table tr:hover {
+            background: #f9f9f9;
+        }
+        body.dark-mode .comparison-table {
+            background: #2a2a2a;
+        }
+        body.dark-mode .comparison-table th {
+            background: #333;
+            color: #ff6600;
+        }
+        body.dark-mode .comparison-table td {
+            border-color: #444;
+            color: #ccc;
+        }
+        body.dark-mode .comparison-table tr:hover {
+            background: #333;
+        }
+
+        /* --- FAVORITES --- */
+        .favorite-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2em;
+            color: #ccc;
+            transition: color 0.3s;
+        }
+        .favorite-btn.active {
+            color: #ff6600;
+        }
+        .favorite-btn:hover {
+            color: #ff6600;
+        }
+        .favorites-section {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .favorites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .favorite-item {
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        body.dark-mode .favorites-section {
+            background: #2a2a2a;
+            border-color: #444;
+        }
+        body.dark-mode .favorite-item {
+            background: #333;
+            border-color: #444;
+        }
+
+        footer { background: #f9f9f9; color: #000; padding: 30px; text-align: center; border-top: 1px solid #eee; margin-top: 60px; }
+
+        </style>
+
+        <!-- Chart.js Library -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    </head>
+    <body>
+        
+        <div class="container">
+            <div class="simple-nav">
+                <div class="nav-brand">
+                    <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
+                        <img src="MotoKarar.png" alt="Logo" style="height: 40px; border-radius: 4px;">
+                        MOTOKARAR
+                    </a>
+                </div>
+                <div class="nav-menu">
+                    <a href="index.html" style="border-bottom: 2px solid #000;">Ana Sayfa</a>
+                    <a href="catalog.html">Modeller</a>
+                </div>
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">&#9776;</button>
+            </div>
+        </div>
+
+        <!-- Mobil Menü -->
+        <div id="mobile-menu" class="mobile-menu">
+            <div class="mobile-menu-content">
+                <span class="mobile-menu-close" onclick="toggleMobileMenu()">&times;</span>
+                <a href="index.html">Ana Sayfa</a>
+                <a href="catalog.html">Modeller</a>
+            </div>
+        </div>
+
+        <div class="header-main">
+            <h1>MOTOSİKLET KARAR SİSTEMİ</h1>
+            <p class="subtitle">AHP ve TOPSIS yöntemleriyle size en uygun motosikleti bilimsel olarak seçin.</p>
+            <a href="catalog.html" class="btn btn-secondary">MODELLERE GÖZ AT</a>
+        </div>
+        
+        <div class="info-box">
+            <strong>NASIL ÇALIŞIR?</strong> 
+            1. Kriterlerin önemini belirleyin. <br>
+            2. "Hesapla" butonuna basın. <br>
+            3. Bilimsel olarak size en uygun <strong>ilk 10 motosikleti</strong> görün.
+        </div>
+
+        <div class="main-content">
+            <section class="section" id="criteria-section">
+                <h2>1. KRİTER AĞIRLIKLARI</h2>
+                
+                <div class="method-selector">
+                    <label class="method-option active" id="opt-slider">
+                        <input type="radio" name="weightMethod" value="slider" checked onchange="toggleMethod('slider')">
+                        BASİT (SLIDER)
+                    </label>
+                    <label class="method-option" id="opt-ahp">
+                        <input type="radio" name="weightMethod" value="ahp" onchange="toggleMethod('ahp')">
+                        GELİŞMİŞ (AHP)
+                    </label>
+                </div>
+
+                <div id="slider-method" class="weight-method">
+                    <p style="margin-bottom: 20px; color:#666; text-align:center;">Özelliklerin önemini ayarlayın.</p>
+                    <div class="criteria-grid" id="criteria-container"></div>
+                </div>
+
+                <div id="ahp-method" class="weight-method" style="display: none;">
+                    <p style="margin-bottom: 20px; color:#666; text-align:center;">İkili karşılaştırma yaparak hangisinin daha önemli olduğunu seçin.</p>
+                    <div id="ahp-comparison-container" class="ahp-container"></div>
+                </div>
+            </section>
+
+            <section class="section" style="background: #fafafa; padding: 30px; border-radius: 8px; border: 1px solid #eee;">
+                
+                <button class="btn btn-calculate" onclick="calculateResults()">
+                    SONUÇLARI HESAPLA
+                </button>
+
+                <div id="ahp-consistency-display" style="display: none;">
+                    <div class="ahp-consistency-box">
+                        <h4 style="color:#666; font-size:0.9em; text-transform:uppercase;">AHP Tutarlılık Analizi</h4>
+                        <div class="consistency-value" id="cr-value">CR: %0.0</div>
+                        <span id="cr-status" class="status-badge status-ok">Tutarlı</span>
+                        <p id="cr-message" style="margin-top:10px; font-size:0.85em; color:#888;">
+                            Tutarlılık oranı %10'un altında olduğu için kararlarınız güvenilirdir.
+                        </p>
+                    </div>
+                </div>
+
+                <div id="results-section" style="display: none; margin-top: 40px;">
+                    <h2 style="text-align: center; border: none; font-size: 1.5em; color:#000;">🏆 EN İYİ 10 TERCİH</h2>
+                    <p style="text-align: center; color: #666; margin-bottom: 30px;">
+                        Detaylı bilgi için motosikletin üzerine tıklayın.
+                    </p>
+                    <div id="results-container"></div>
+                </div>
+
+            </section>
+
+            <section class="section" id="alternatives-section" style="background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 20px;">
+                <div onclick="toggleAlternatives()" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none;">
+                    <div style="display: flex; align-items: center;">
+                        <h2 style="margin: 0; font-size: 1.3em; border: none; display: inline-block;">2. ANALİZE DAHİL EDİLEN MODELLER</h2>
+                        <span style="font-size: 0.8em; color: #888; margin-left: 15px; font-weight: normal;">(Listeyi açmak/kapatmak için tıklayın)</span>
+                    </div>
+                    <span id="toggle-icon" style="font-size: 1.5em; color: #666; transition: transform 0.3s;">▼</span>
+                </div>
+                
+                <div id="alternatives-wrapper" style="display: none; margin-top: 20px; border-top: 1px solid #f0f0f0; padding-top: 20px;">
+                    <p style="color:#666; margin-bottom: 20px;">
+                        Hesaplamaya katmak istediğiniz motorları buradan seçip çıkarabilirsiniz.
+                    </p>
+                    <div class="alternatives-container">
+                        <div class="motorcycle-grid" id="motorcycles-container">
+                            </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <footer>
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h4 style="margin-bottom: 10px; font-weight:900;">MOTOKARAR</h4>
+            <p style="font-size: 0.9em; color:#666;">AHP ve TOPSIS Algoritmaları Kullanılarak Geliştirilmiştir.</p>
+            <div style="margin-top: 20px; font-size: 0.8em; color: #999;">© 2025 Tüm Hakları Saklıdır.</div>
+        </div>
+    </footer>
+
+    <div id="resultDetailModal" class="modal">
+        <span class="modal-close" onclick="document.getElementById('resultDetailModal').style.display='none'">&times;</span>
+        <div class="modal-content">
+            <div id="modal-inner-content" style="display: flex; flex-wrap: wrap; width: 90%; max-width: 1200px;">
+                </div>
+        </div>
+    </div>
+
+    <script src="ahp.js"></script>
+    
+    <script>
+
+        // Mobil Menü Fonksiyonu
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu.style.display === 'flex') {
+                mobileMenu.style.display = 'none';
+            } else {
+                mobileMenu.style.display = 'flex';
+            }
+        }
+
+        // --- AYARLAR ---
+        const criteria = [
+            { id: 'price', name: 'FİYAT', type: 'cost' },
+            { id: 'power', name: 'GÜÇ', type: 'benefit' },
+            { id: 'fuel', name: 'YAKIT', type: 'cost' },
+            { id: 'weight', name: 'AĞIRLIK', type: 'cost' }
+        ];
+
+        let motorcycles = []; 
+        let sortedResults = [];
+        let ahpMatrix = {};
+
+        // Random Index (RI) Tablosu
+        const RI = [0, 0, 0.58, 0.90, 1.12, 1.24, 1.32, 1.41, 1.45, 1.49];
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            renderSliders();
+            renderAHPInterface();
+            await loadMotorcycles();
+        });
+
+        // LİSTE GİZLE/GÖSTER FONKSİYONU
+        function toggleAlternatives() {
+            const wrapper = document.getElementById('alternatives-wrapper');
+            const icon = document.getElementById('toggle-icon');
+            if (wrapper.style.display === 'none') {
+                wrapper.style.display = 'block';
+                icon.style.transform = 'rotate(180deg)'; // Oku yukarı çevir
+            } else {
+                wrapper.style.display = 'none';
+                icon.style.transform = 'rotate(0deg)'; // Oku aşağı çevir
+            }
+        }
+
+        function renderSliders() {
+            const container = document.getElementById('criteria-container');
+            container.innerHTML = criteria.map(c => `
+                <div class="criteria-item">
+                    <label>${c.name} (${c.type === 'cost' ? 'Düşük İyi' : 'Yüksek İyi'})</label>
+                    <input type="range" id="w-${c.id}" min="1" max="10" value="5" oninput="document.getElementById('val-${c.id}').innerText = this.value">
+                    <div style="text-align:right; font-weight:bold; color:#ff6600;" id="val-${c.id}">5</div>
+                </div>
+            `).join('');
+        }
+
+        function renderAHPInterface() {
+            const container = document.getElementById('ahp-comparison-container');
+            container.innerHTML = '';
+            for (let i = 0; i < criteria.length; i++) {
+                for (let j = i + 1; j < criteria.length; j++) {
+                    const c1 = criteria[i];
+                    const c2 = criteria[j];
+                    const pairId = `${c1.id}-${c2.id}`;
+                    ahpMatrix[pairId] = 1;
+
+                    let scaleHtml = '';
+                    [9, 7, 5, 3].forEach(val => scaleHtml += `<div class="scale-point" onclick="setAHPValue('${pairId}', ${val}, 'left', this)" data-title="${val} Kat Önemli">${val}</div>`);
+                    scaleHtml += `<div class="scale-point center selected" onclick="setAHPValue('${pairId}', 1, 'center', this)" data-title="Eşit">1</div>`;
+                    [3, 5, 7, 9].forEach(val => scaleHtml += `<div class="scale-point" onclick="setAHPValue('${pairId}', ${val}, 'right', this)" data-title="${val} Kat Önemli">${val}</div>`);
+
+                    const row = document.createElement('div');
+                    row.className = 'ahp-row';
+                    row.innerHTML = `<div class="ahp-label" style="text-align:right;">${c1.name}</div><div class="ahp-scale">${scaleHtml}</div><div class="ahp-label" style="text-align:left;">${c2.name}</div>`;
+                    container.appendChild(row);
+                }
+            }
+        }
+
+        window.setAHPValue = function(pairId, val, side, element) {
+            element.parentElement.querySelectorAll('.scale-point').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            ahpMatrix[pairId] = (side === 'left') ? val : (side === 'right' ? 1/val : 1);
+        };
+
+        window.toggleMethod = function(method) {
+            document.querySelectorAll('.method-option').forEach(el => el.classList.remove('active'));
+            if(method === 'slider') {
+                document.getElementById('opt-slider').classList.add('active');
+                document.getElementById('slider-method').style.display = 'block';
+                document.getElementById('ahp-method').style.display = 'none';
+                document.getElementById('ahp-consistency-display').style.display = 'none';
+            } else {
+                document.getElementById('opt-ahp').classList.add('active');
+                document.getElementById('slider-method').style.display = 'none';
+                document.getElementById('ahp-method').style.display = 'block';
+            }
+        };
+
+        async function loadMotorcycles() {
+            try {
+                let data = [];
+                try {
+                    const res = await fetch('http://localhost:5000/api/motorcycles');
+                    if(res.ok) { const json = await res.json(); data = json.motorcycles || json; }
+                    else throw new Error();
+                } catch(e) {
+                    const res = await fetch('motorcycles-example.json');
+                    data = await res.json();
+                }
+
+                motorcycles = data.map(m => {
+                     let normalized = m;
+                     if(!m.values) normalized = { ...m, values: { price: m.price||0, power: m.power||0, fuel: m.fuel||0, weight: m.weight||0 } };
+                     if(!normalized.url && m.url) normalized.url = m.url;
+                     return normalized;
+                });
+                renderMotorcycles();
+            } catch (e) { console.error("Veri hatası", e); }
+        }
+
+        function renderMotorcycles() {
+            const container = document.getElementById('motorcycles-container');
+            const noImg = "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22300%22%20height%3D%22200%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22300%22%20height%3D%22200%22%20fill%3D%22%23eee%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20font-family%3D%22Arial%22%20font-size%3D%2214%22%20fill%3D%22%23aaa%22%20text-anchor%3D%22middle%22%3EFOTO%20YOK%3C%2Ftext%3E%3C%2Fsvg%3E";
+
+            container.innerHTML = motorcycles.map((m, idx) => `
+                <div class="motorcycle-item selected" onclick="this.classList.toggle('selected')" data-index="${idx}">
+                    <img src="${m.image_url || noImg}" onerror="this.src='${noImg}'">
+                    <h3 style="font-size:0.9em; margin:5px 0; font-weight:700;">${m.name}</h3>
+                    <div style="font-size:0.8em; color:#666;">${(m.values.price||0).toLocaleString()} TL</div>
+                </div>
+            `).join('');
+        }
+
+        // --- HESAPLAMA ---
+        window.calculateResults = function() {
+            const selectedIndices = [];
+            document.querySelectorAll('.motorcycle-item.selected').forEach(el => selectedIndices.push(parseInt(el.dataset.index)));
+            if(selectedIndices.length < 2) { alert("En az 2 motosiklet seçmelisiniz!"); return; }
+            const alt = selectedIndices.map(i => motorcycles[i]);
+            const m = alt.length;
+            const n = criteria.length;
+
+            let weights = [];
+            const method = document.querySelector('input[name="weightMethod"]:checked').value;
+
+            // AHP Seçiliyse Tutarlılığı Göster
+            const ahpDisplay = document.getElementById('ahp-consistency-display');
+            if (method === 'ahp') {
+                let matrix = Array(n).fill().map(()=>Array(n).fill(1));
+                for(let i=0; i<n; i++) {
+                    for(let j=i+1; j<n; j++) {
+                        const val = ahpMatrix[`${criteria[i].id}-${criteria[j].id}`];
+                        matrix[i][j]=val; matrix[j][i]=1/val;
+                    }
+                }
+
+                let geoMeans = [], sumGeo = 0;
+                for(let i=0; i<n; i++) {
+                    let p=1; for(let j=0; j<n; j++) p*=matrix[i][j];
+                    let gm = Math.pow(p, 1/n);
+                    geoMeans.push(gm); sumGeo+=gm;
+                }
+                weights = geoMeans.map(gm => gm/sumGeo);
+
+                // CR Hesapla
+                let weightedSumVector = [];
+                for(let i=0; i<n; i++) {
+                    let sum = 0;
+                    for(let j=0; j<n; j++) sum += matrix[i][j] * weights[j];
+                    weightedSumVector.push(sum);
+                }
+                
+                let lambdaMax = 0;
+                for(let i=0; i<n; i++) lambdaMax += weightedSumVector[i] / weights[i];
+                lambdaMax /= n;
+
+                const CI = (lambdaMax - n) / (n - 1);
+                const CR = CI / RI[n-1];
+
+                ahpDisplay.style.display = 'block';
+                const crPercent = (CR * 100).toFixed(1);
+                document.getElementById('cr-value').innerText = `CR: %${crPercent}`;
+                
+                const crStatus = document.getElementById('cr-status');
+                const crMsg = document.getElementById('cr-message');
+
+                if (CR <= 0.1) {
+                    crStatus.className = 'status-badge status-ok';
+                    crStatus.innerText = 'TUTARLI';
+                    crMsg.innerText = "Kararlarınız mantıksal olarak tutarlı. Sonuçlar güvenilir.";
+                } else {
+                    crStatus.className = 'status-badge status-warn';
+                    crStatus.innerText = 'DİKKAT: TUTARSIZ';
+                    crMsg.innerHTML = "Tutarlılık oranı %10'un üzerinde. Lütfen karşılaştırmalarınızı gözden geçirin.";
+                }
+
+            } else {
+                ahpDisplay.style.display = 'none';
+                let total = 0;
+                let raw = criteria.map(c => { const v = parseInt(document.getElementById(`w-${c.id}`).value); total+=v; return v; });
+                weights = raw.map(w => w / total);
+            }
+
+            // --- TOPSIS ---
+            let dMat = alt.map(mt => [mt.values.price, mt.values.power, mt.values.fuel, mt.values.weight]);
+            let normMat = [];
+            for(let i=0; i<m; i++) normMat[i] = [];
+            for(let j=0; j<n; j++) {
+                let sumSq = 0;
+                for(let i=0; i<m; i++) sumSq += Math.pow(dMat[i][j], 2);
+                let sqrtSum = Math.sqrt(sumSq);
+                for(let i=0; i<m; i++) normMat[i][j] = dMat[i][j] / sqrtSum;
+            }
+            let wMat = [];
+            for(let i=0; i<m; i++) {
+                wMat[i] = [];
+                for(let j=0; j<n; j++) wMat[i][j] = normMat[i][j] * weights[j];
+            }
+            let best = [], worst = [];
+            for(let j=0; j<n; j++) {
+                let col = wMat.map(row => row[j]);
+                if(criteria[j].type === 'benefit') { best[j] = Math.max(...col); worst[j] = Math.min(...col); }
+                else { best[j] = Math.min(...col); worst[j] = Math.max(...col); }
+            }
+            let results = alt.map((moto, i) => {
+                let dBest = 0, dWorst = 0;
+                for(let j=0; j<n; j++) {
+                    dBest += Math.pow(wMat[i][j] - best[j], 2);
+                    dWorst += Math.pow(wMat[i][j] - worst[j], 2);
+                }
+                dBest = Math.sqrt(dBest); dWorst = Math.sqrt(dWorst);
+                let score = dWorst / (dBest + dWorst);
+                return { ...moto, score: score };
+            });
+
+            results.sort((a, b) => b.score - a.score);
+            sortedResults = results;
+
+            const top10 = results.slice(0, 10);
+            const resContainer = document.getElementById('results-container');
+            document.getElementById('results-section').style.display = 'block';
+            
+            resContainer.innerHTML = top10.map((r, i) => `
+                <div class="result-card" onclick="showResultDetail(${i})" style="${i===0 ? 'border:2px solid #ff6600; background:#fff0e6;' : ''}">
+                    <div style="display:flex; align-items:center;">
+                        <div class="result-rank">#${i+1}</div>
+                        <div>
+                            <div class="result-name">${r.name}</div>
+                            <div class="result-score">Skor: ${r.score.toFixed(4)}</div>
+                        </div>
+                    </div>
+                    ${i===0 ? '<div style="background:#ff6600; color:white; padding:5px 10px; font-size:0.8em; font-weight:bold; border-radius:4px;">EN İYİ SEÇİM</div>' : '<span style="color:#999; font-size:0.8em;">Detaylar ></span>'}
+                </div>
+            `).join('');
+
+            document.getElementById('results-section').scrollIntoView({behavior: 'smooth'});
+        };
+
+        function showResultDetail(index) {
+            const moto = sortedResults[index];
+            const modal = document.getElementById('resultDetailModal');
+            const content = document.getElementById('modal-inner-content');
+            const noImg = "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22300%22%20height%3D%22200%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22300%22%20height%3D%22200%22%20fill%3D%22%23eee%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20font-family%3D%22Arial%22%20font-size%3D%2214%22%20fill%3D%22%23aaa%22%20text-anchor%3D%22middle%22%3EFOTO%20YOK%3C%2Ftext%3E%3C%2Fsvg%3E";
+            const img = moto.image_url || noImg;
+            const linkHtml = moto.url ? `<a href="${moto.url}" target="_blank" class="btn btn-calculate" style="text-align:center; text-decoration:none; margin-top:20px;">RESMİ SİTESİNE GİT ↗</a>` : '';
+
+            content.innerHTML = `
+                <div style="flex:1; padding:30px; text-align:center; min-width:300px;">
+                     <img src="${img}" style="max-width:100%; max-height:400px; object-fit:contain; mix-blend-mode: multiply; filter: contrast(1.1) brightness(1.1);">
+                </div>
+                <div style="flex:1; padding:40px; min-width:300px;">
+                    <div style="color:#ff6600; font-weight:bold; letter-spacing:2px; margin-bottom:10px;">SIRALAMA: #${index+1}</div>
+                    <h1 style="font-size:2.5em; line-height:1.1; margin-bottom:20px; text-transform:uppercase;">${moto.name}</h1>
+                    <div style="font-size:2em; font-weight:300; margin-bottom:30px;">${(moto.values.price||0).toLocaleString()} TL</div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; border-top:2px solid #000; padding-top:20px;">
+                        <div><strong style="color:#666;">GÜÇ:</strong> <br> <span style="font-size:1.4em">${moto.values.power} HP</span></div>
+                        <div><strong style="color:#666;">AĞIRLIK:</strong> <br> <span style="font-size:1.4em">${moto.values.weight} KG</span></div>
+                        <div><strong style="color:#666;">YAKIT:</strong> <br> <span style="font-size:1.4em">${moto.values.fuel} LT</span></div>
+                        <div><strong style="color:#666;">SKOR:</strong> <br> <span style="font-size:1.4em">${moto.score.toFixed(4)}</span></div>
+                    </div>
+                    ${linkHtml}
+                </div>
+            `;
+            modal.style.display = 'flex';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('resultDetailModal');
+            if (event.target === modal) modal.style.display = 'none';
+        }
+    </script>
+<!-- Loading Container -->
+<div id="loadingOverlay" class="loading-overlay">
+    <div class="loading-container">
+        <div class="loading-motorcycle">
+            <div class="motorcycle-wheel wheel-front"></div>
+            <div class="motorcycle-body">
+                <div class="motorcycle-seat"></div>
+                <div class="motorcycle-handle"></div>
+            </div>
+            <div class="motorcycle-wheel wheel-rear"></div>
+        </div>
+        <div class="loading-text">
+            <div class="loading-title">Moto Karar</div>
+            <div class="loading-subtitle">En uygun motosiklet bulunuyor...</div>
+        </div>
+        <div class="loading-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

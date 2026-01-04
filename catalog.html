@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpeg" href="MotoKarar.png">
+    <title>Motosiklet Kataloğu</title>
+    
+    <style>
+        /* --- GENEL AYARLAR --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: #ffffff !important;
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            color: #000;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* --- NAVBAR --- */
+        /* NAVBAR (Sabit/Yapışkan Hale Getirildi) */
+        .simple-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+    
+            /* Eski margin ve border ayarları */
+            padding: 20px 10px; /* Biraz iç boşluk ekledik */
+            margin-bottom: 40px;
+            border-bottom: 2px solid #f5f5f5;
+
+            /* --- YENİ EKLENEN KISIMLAR --- */
+            position: sticky; /* Sayfaya yapışmasını sağlayan komut */
+            top: 0;           /* En tepede durması için */
+            background-color: rgba(255, 255, 255, 0.98); /* Arka planı hafif şeffaf beyaz yap */
+            z-index: 1000;    /* Diğer resimlerin/yazıların üstünde kalmasını sağlar */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Altına hafif bir gölge ekler, şık durur */
+            backdrop-filter: blur(5px); /* Arka planı hafifçe bulanıklaştırır (buzlu cam efekti) */
+    }
+        
+        .nav-brand {
+            font-size: 1.5em;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: #000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-menu a {
+            color: #000;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+        .nav-menu a:hover { color: #ff6600; }
+
+        /* --- BAŞLIK VE FİLTRELER --- */
+        h1.page-title {
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: 900;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        .filters-wrapper {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+        
+        .custom-select, .custom-input {
+            padding: 10px;
+            border: none;
+            border-bottom: 2px solid #ddd;
+            font-weight: 700;
+            background: white;
+            min-width: 150px;
+            outline: none;
+        }
+        .custom-select:focus, .custom-input:focus { border-bottom-color: #000; }
+
+        /* --- TÜR BAŞLIKLARI (YENİ) --- */
+        .type-section {
+            margin-bottom: 60px;
+        }
+
+        .type-header {
+            font-size: 1.8em;
+            font-weight: 300; /* İnce font */
+            color: #666;      /* Koyu gri renk */
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- IZGARA YAPISI --- */
+        .motorcycle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        /* --- KART YAPISI --- */
+        .moto-card {
+            background: #fff;
+            cursor: pointer;
+            text-align: center;
+            transition: transform 0.2s;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            /* Kart sınırlarını kaldırdık, sadece resim ve isim */
+        }
+
+        .moto-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* RESİM ALANI - DÜZELTİLDİ */
+        .img-wrapper {
+            width: 100%;
+            height: 220px; /* 2500px hatası düzeltildi, sabit 220px yapıldı */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            background: #fff; 
+            padding: 10px;
+        }
+
+        .moto-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* Resmi kesmeden sığdır */
+            display: block;
+            mix-blend-mode: multiply;
+            filter: contrast(1.1) brightness(1.1);
+        }
+
+        .moto-name {
+            font-size: 0.95em;
+            font-weight: 700;
+            color: #000;
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+
+        /* --- MODAL --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px; right: 40px;
+            font-size: 60px;
+            cursor: pointer;
+            line-height: 0.5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="simple-nav">
+            <div class="nav-brand">
+                <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
+                    <img src="MotoKarar.png" alt="Logo" style="height: 40px; border-radius: 4px;">
+                    MOTOKARAR
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html">Ana Sayfa</a>
+                <a href="catalog.html" style="border-bottom: 2px solid black;">Modeller</a>
+            </div>
+        </div>
+
+        <h1 class="page-title">TÜM MODELLER</h1>
+
+        <div class="filters-wrapper">
+            <input type="text" id="search" class="custom-input" placeholder="MODEL ARA..." oninput="filterData()">
+            
+            <select id="brand" class="custom-select" onchange="filterData()">
+                <option value="">TÜM MARKALAR</option>
+            </select>
+            
+            <select id="type" class="custom-select" onchange="filterData()">
+                <option value="">TÜM TÜRLER</option>
+                <option value="Naked">NAKED</option>
+                <option value="Süper Sport">RACING</option>
+                <option value="Adventure">ADVENTURE</option>
+                <option value="Scooter">SCOOTER</option>
+                <option value="Touring">TOURING</option>
+            </select>
+        </div>
+
+        <div id="catalog-container"></div>
+
+    </div>
+
+    <div id="detailModal" class="modal-overlay" onclick="if(event.target === this) this.style.display='none'">
+        <span class="close-modal" onclick="document.getElementById('detailModal').style.display='none'">&times;</span>
+        <div id="modalContent" style="width: 90%; max-width: 1200px; display:flex; flex-wrap:wrap; justify-content:center; align-items:center;">
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:5000/api/motorcycles';
+        let allMotos = [];
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            await loadData();
+        });
+
+        async function loadData() {
+            try {
+                const res = await fetch(API_URL);
+                if(res.ok) {
+                    const data = await res.json();
+                    // Veri formatını kontrol et ve normalize et
+                    allMotos = (Array.isArray(data) ? data : data.motorcycles || []).map(m => {
+                         if (!m.values) {
+                             return {
+                                 ...m,
+                                 values: { price: m.price || 0, power: m.power || 0, fuel: m.fuel || 0, weight: m.weight || 0 }
+                             };
+                         }
+                         return m;
+                    });
+                    
+                    fillBrands();
+                    render(allMotos); // İlk render
+                } else {
+                    // API çalışmazsa yedek (örnek) veriyi dene
+                    const jsonRes = await fetch('motorcycles-example.json');
+                    allMotos = await jsonRes.json();
+                    render(allMotos);
+                }
+            } catch (e) { console.log("Veri çekilemedi", e); }
+        }
+
+        function fillBrands() {
+            const brands = new Set(allMotos.map(m => m.name.split(' ')[0]));
+            const sel = document.getElementById('brand');
+            sel.innerHTML = '<option value="">TÜM MARKALAR</option>'; // Reset
+            brands.forEach(b => {
+                const opt = document.createElement('option');
+                opt.value = b; 
+                opt.textContent = b.toUpperCase();
+                sel.appendChild(opt);
+            });
+        }
+
+        // --- YENİ RENDER FONKSİYONU (TÜRLERE GÖRE GRUPLAR) ---
+        function render(list) {
+            const container = document.getElementById('catalog-container');
+            container.innerHTML = ''; // Temizle
+            
+            if(list.length === 0) {
+                container.innerHTML = '<div style="text-align:center; padding:50px; font-size:1.2em; color:#666;">Aradığınız kriterlere uygun motosiklet bulunamadı.</div>';
+                return;
+            }
+
+            // 1. Mevcut listedeki benzersiz türleri bul
+            const uniqueTypes = [...new Set(list.map(m => m.type || 'Diğer'))].sort();
+
+            // 2. Her tür için bir bölüm oluştur
+            uniqueTypes.forEach(type => {
+                // Bu türe ait motorları filtrele
+                const bikesOfType = list.filter(m => (m.type || 'Diğer') === type);
+
+                if (bikesOfType.length > 0) {
+                    // A) Bölüm Kapsayıcısı
+                    const section = document.createElement('div');
+                    section.className = 'type-section';
+
+                    // B) Başlık (Örn: SUPERSPORT)
+                    const title = document.createElement('h2');
+                    title.className = 'type-header';
+                    title.innerText = type;
+                    section.appendChild(title);
+
+                    // C) Izgara (Grid)
+                    const grid = document.createElement('div');
+                    grid.className = 'motorcycle-grid';
+
+                    // D) Kartları Ekle
+                    bikesOfType.forEach(m => {
+                        const img = m.image_url || 'images/default-motorcycle.png';
+                        
+                        const card = document.createElement('div');
+                        card.className = 'moto-card';
+                        card.onclick = () => openModal(m);
+                        card.innerHTML = `
+                            <div class="img-wrapper">
+                                <img src="${img}" class="moto-img" onerror="this.style.display='none'">
+                            </div>
+                            <h3 class="moto-name">${m.name}</h3>
+                        `;
+                        grid.appendChild(card);
+                    });
+
+                    section.appendChild(grid);
+                    container.appendChild(section);
+                }
+            });
+        }
+
+        function filterData() {
+            const s = document.getElementById('search').value.toLowerCase();
+            const b = document.getElementById('brand').value.toLowerCase();
+            const t = document.getElementById('type').value.toLowerCase();
+
+            const filtered = allMotos.filter(m => {
+                const name = m.name.toLowerCase();
+                const type = (m.type || '').toLowerCase();
+                
+                return name.includes(s) && 
+                       (b === '' || name.includes(b)) &&
+                       (t === '' || type.includes(t));
+            });
+            render(filtered);
+        }
+
+        function openModal(m) {
+            const modal = document.getElementById('detailModal');
+            const content = document.getElementById('modalContent');
+            const img = m.image_url || '';
+            const price = m.values?.price || 0;
+            // Kaynak URL'sini belirle: önce obje içinde `url` varsa kullan, yoksa marka bazlı fallback
+            function getSourceUrl(item) {
+                if (item.url && typeof item.url === 'string' && item.url.trim() !== '') return item.url;
+                const name = (item.name || '').toLowerCase();
+                if (name.includes('honda')) return 'https://www.honda.com.tr/motosiklet/modeller';
+                if (name.includes('yamaha')) return 'https://www.yamaha-motor.eu/tr/tr/motorcycles/';
+                if (name.includes('ducati')) return 'https://www.ducati.com/';
+                if (name.includes('bmw')) return 'https://www.bmw-motorrad.com/en/index.html';
+                if (name.includes('ktm')) return 'https://www.ktm.com/';
+                if (name.includes('triumph')) return 'https://www.triumphmotorcycles.co.uk/';
+                if (name.includes('kawasaki')) return 'https://www.kawasaki.com/';
+                if (name.includes('bajaj')) return 'https://www.bajajauto.com/';
+                return '';
+            }
+
+            const sourceUrl = getSourceUrl(m);
+            const linkHtml = sourceUrl ? `
+                <div style="margin-top:20px; text-align:center;">
+                    <a href="${sourceUrl}" target="_blank" rel="noopener noreferrer" 
+                       style="display: inline-block; padding: 12px 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                              color: white; text-decoration: none; border-radius: 8px; font-weight: 600; 
+                              transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);">
+                        🌐 ${m.name.split(' ')[0]} Resmi Sitesine Git →
+                    </a>
+                </div>` : '';
+
+            content.innerHTML = `
+                <div style="flex:1; padding:20px; text-align:center;">
+                    <img src="${img}" style="max-width:100%; max-height:400px; mix-blend-mode: multiply;">
+                </div>
+                <div style="flex:1; min-width:300px; padding:40px;">
+                    <h1 style="font-size:2.5em; font-weight:900; text-transform:uppercase; margin-bottom:10px;">${m.name}</h1>
+                    <div style="font-size:2em; font-weight:300; margin-bottom:30px;">${price.toLocaleString()} TL</div>
+                    
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; border-top:2px solid #000; padding-top:20px;">
+                        <div><strong style="color:#666;">GÜÇ:</strong> <br> <span style="font-size:1.4em">${m.values?.power} HP</span></div>
+                        <div><strong style="color:#666;">AĞIRLIK:</strong> <br> <span style="font-size:1.4em">${m.values?.weight} KG</span></div>
+                        <div><strong style="color:#666;">YAKIT:</strong> <br> <span style="font-size:1.4em">${m.values?.fuel} LT</span></div>
+                        <div><strong style="color:#666;">TÜR:</strong> <br> <span style="font-size:1.4em">${m.type || '-'}</span></div>
+                    </div>
+                    ${linkHtml}
+                </div>
+            `;
+            modal.style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
